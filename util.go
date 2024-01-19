@@ -218,4 +218,5 @@ func CreatePath(path string) error {
 	} else if err != nil {
 		return err
 	}
+	return nil
 }
