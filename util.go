@@ -6,6 +6,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
+	"fmt"
 	"log"
 	"net"
 	"net/url"
@@ -203,4 +204,18 @@ func GetHosts(links []string)[]string{
 		hosts =append(hosts,parsedURL.Host)
 	}
 	return hosts
+}
+
+// CreatePath 如果指定路径不存在则创建对应路径
+func CreatePath(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		// 路径不存在，创建它
+		err := os.MkdirAll(path, os.ModePerm)
+		if err != nil {
+			fmt.Println("无法创建路径:", err)
+			return err
+		}
+	} else if err != nil {
+		return err
+	}
 }
